@@ -1,0 +1,67 @@
+.\" Manpage for procman.
+
+.TH MAN 1 "16 June 2020" "1.0" "procman man page"
+
+.SH NAME
+procman \- list active processes
+
+.SH SYNOPSIS
+\fBprocman show\fR [\fB-s\fR|\fB--sort\fI category\fR] [\fB-E\fR|\fB--regex\fR] [\fB-x\fR|\fB--exp\fR\fI expression\fR] [\fB-f\fR|\fB--filter\fR\fI filter\fR]
+.br
+\fBprocman kill\fR \fIname\fR|\fIpID\fR
+.br
+\fBprocman details\fR \fIname\fR|\fIpID\fR
+.br
+\fBprocman\fR [\fBhelp\fR]
+
+.SH DESCRIPTION
+procman is a shell program that allows a user to easily monitor and manipulate active processes on their system.
+
+.SH OPTIONS
+Running \fBprocman\fR or \fBprocman help\fR will show the usage of this function, similar to the synopsis above. Running \fBprocman show\fR without any additional arguments will show a list of all active processes in ascending order.
+.SS Options for show
+.TP 7
+\fB-s\fI category\fR, \fB--sort\fI category\fR
+sort the list of active processes in descending order by \fIcategory\fR. Category must be either \fBpid\fR, \fBmem\fR, or \fBcpu\fR. Cannot be used with \fB-x\fR or \fB--exp\fR, however can be used with \fB-f\fR or \fB--filter\fR.
+.br
+
+.TP
+\fB-f\fI filter\fR, \fB--filter\fI filter\fR
+filter the list of active processes by \fIfilter\fR. Finds only entries containing \fIfilter\fR by default. Cannot be used with \fB-x\fR or \fB--exp\fR, however can be used with \fB-s\fR or \fB--sort\fR.
+
+.TP
+\fB-E -f\fR\fI filter\fR, \fB--regex --filter\fI filter\fR
+Makes filter look instead for entries matching \fIfilter\fR as if it were a regular expression. Cannot be used with \fB-x\fR or \fB--exp\fR, however can be used with \fB-s\fR or \fB--sort\fR. Must be used with \fB-f\fR or \fB--filter\fR.
+
+.TP
+\fB-x\fI expression\fR, \fB--exp\fI expression\fR
+Looks for entries that satisfy the expression represented by \fIexpression\fR, which must be in the form \fIcolumn\fR>\fIvalue\fR or \fIcolumn\fR<\fIvalue\fR where \fIcolumn\fR is either \fBpid\fR, \fBcpu\fR, or \fBmem\fR and \fIvalue\fR is either an integer or floating-point decimal. Ensure that \fIexpression\fR is wrapped in double quotes. \fB<=\fR and \fB>=\fR operators are also permitted. Cannot be used with \fB-E\fR, \fB-s\fR, or \fB-f\fR flags.
+
+Ex: \fBprocman show -x "cpu>0.0"\fR will print all processes with cpu usage greater than 0.0%.
+
+.SS Options for kill
+.TP
+\fBname\fR
+Kills the active process with name \fIname\fR.
+
+.TP
+\fBpID\fR
+Kills the active process with ID \fIpID\fR.
+
+.SS Options for details
+.TP
+\fBname\fR
+shows the status of the process with name \fIname\fR and the command that is running it.
+
+.TP
+\fBpID\fR
+shows the status of the process with ID \fIpID\fR and the command that is running it.
+
+.SH BUGS
+No known bugs.
+.SH AUTHORS
+Jason Klein
+.br
+Darius Kianersi
+.br
+Kaushik Siruvuri
